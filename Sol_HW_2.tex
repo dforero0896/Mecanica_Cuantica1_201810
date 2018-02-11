@@ -1,0 +1,476 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font than Computer Modern for most use cases
+    \usepackage{palatino}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Sol\_HW\_2}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Mecánica Cuántica 1
+-201810}\label{mecuxe1nica-cuuxe1ntica-1--201810}
+
+\subsection{Tarea \# 2 - Solución}\label{tarea-2---soluciuxf3n}
+
+Elaborada por Daniel Forero.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{from} \PY{n+nn}{sympy} \PY{k+kn}{import} \PY{o}{*}
+        \PY{n}{init\PYZus{}printing}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \subsection{Problema 2.1}\label{problema-2.1}
+
+    Recordemos la ecuación de Klein-Gordon:
+\[\left(\frac{1}{c^2}\frac{\partial^2}{\partial t^2}-\nabla^2 + \frac{m^2c^2}{\hbar^2}\right)\psi = 0\]
+
+Y definimos \(\mu^2 = \frac{m^2c^2}{\hbar^2}\).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{xi}\PY{p}{,} \PY{n}{ki}\PY{p}{,} \PY{n}{om}\PY{p}{,} \PY{n}{mu}\PY{o}{=}\PYZbs{}
+        \PY{n}{symbols}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZus{}i k\PYZus{}i omega mu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{real}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}
+        \PY{n}{h}\PY{p}{,}\PY{n}{m}\PY{p}{,}\PY{n}{c}\PY{p}{,}\PY{n}{t} \PY{o}{=} \PY{n}{symbols}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hbar m c t}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{real}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,}\PYZbs{}
+                          \PY{n}{positive}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,}\PY{n}{polar}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}
+        \PY{n}{psi} \PY{o}{=} \PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{I}\PY{o}{*}\PY{p}{(}\PY{n}{ki}\PY{o}{*}\PY{n}{xi}\PY{o}{\PYZhy{}}\PY{n}{om}\PY{o}{*}\PY{n}{t}\PY{p}{)}\PY{p}{)}
+        \PY{n}{laplace} \PY{o}{=} \PY{n}{Derivative}\PY{p}{(}\PY{n}{psi}\PY{p}{,}\PY{n}{xi}\PY{p}{,}\PY{n}{xi}\PY{p}{)}
+        \PY{n}{eq} \PY{o}{=} \PY{n}{Equality}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{c}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{n}{Derivative}\PY{p}{(}\PY{n}{psi}\PY{p}{,}\PY{n}{t}\PY{p}{,}\PY{n}{t}\PY{p}{)}\PY{o}{\PYZhy{}}\PYZbs{}
+                      \PY{n}{laplace} \PY{o}{\PYZhy{}} \PY{n}{mu}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{psi}\PY{p}{)}\PY{o}{.}\PY{n}{doit}\PY{p}{(}\PY{p}{)}
+        \PY{n}{condition} \PY{o}{=} \PY{n}{simplify}\PY{p}{(}\PY{n}{factor}\PY{p}{(}\PY{n}{eq}\PY{p}{)}\PY{p}{)}
+        \PY{n}{condition}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}2}]:}
+    
+    \[\frac{1}{c^{2}} \left(c^{2} k_{i}^{2} - c^{2} \mu^{2} - \omega^{2}\right) e^{i \left(- k_{i} x_{i} + \omega t\right)} = 0\]
+
+    
+
+    De la anterior celda entendemos que
+\[k^2 - \frac{\omega^2}{c^2} + \frac{m^2c^2}{\hbar^2}=0\] Esta expresión
+es equivalente a \[p^2c^2 + m^2c^4 = E^2,\] es decir, la relación
+momento-energía relativista debe satisfacerse para que
+\(\psi = \exp(-i(k_ix_i-\omega t))\) sea solución. Más generalmente una
+combinación de funciones de este tipo para todo \(k\) formará el campo
+de Klein-Gordon que posteriormente se utilizará para describir
+partículas de spin 0.
+
+Es además claro que fue necesario tomar \(p=\hbar k\) y
+\(E=\hbar \omega\).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{disp\PYZus{}rel} \PY{o}{=}\PY{n}{simplify}\PY{p}{(}\PY{n}{solve}\PY{p}{(}\PY{n}{condition}\PY{p}{,}\PY{n}{om}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n}{group\PYZus{}v} \PY{o}{=} \PY{n}{simplify}\PY{p}{(}\PY{n}{diff}\PY{p}{(}\PY{n}{expand}\PY{p}{(}\PY{n}{disp\PYZus{}rel}\PY{p}{)}\PY{p}{,}\PY{n}{ki}\PY{p}{)}\PY{p}{)}
+        \PY{n}{group\PYZus{}v}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}3}]:}
+    
+    \[\frac{c k_{i}}{\sqrt{k_{i}^{2} - \mu^{2}}}\]
+
+    
+
+    Entonces, la velocidad de grupo es
+\[v_g = \frac{ck}{\sqrt{k^2-\mu^2}} = \frac{ck}{\omega}.\] Por otro
+lado, la velocidad de fase es \[v_p = \frac{\omega}{k}.\]
+
+PS. El problema hubiera sido más sencillo recordando las condiciones de
+primera cuantización: \[E \rightarrow \sim\frac{\partial}{\partial t}\]
+\[p \rightarrow \sim -\hbar\nabla.\] De hecho, la ecuación de KG es el
+primer acercamiento a ecuaciones de onda relativistas y viene de,
+precisamente, realizar ``primera cuantización'' en la relación
+energía-momentum relativista.
+
+    \subsection{Problema 2.3}\label{problema-2.3}
+
+    Tenemos la representación de momentum
+\[\langle p | \psi\rangle = \varphi(p) = \frac{1}{(\pi\sigma^2\hbar^2)^{1/4}} \exp\left(-\frac{(p-p_0)^2}{2\sigma^2\hbar^2}\right).\]
+
+Para obtener la representación de posición
+\(\langle x | \psi\rangle = \phi(x)\) tomamos la transformada de
+Fourier, para evitar ambiguedades la definimos de la forma usual:
+
+\[ \phi(x) = \int_{-\infty}^{\infty}\varphi(p=\hbar k=2\pi\hbar\nu)\exp(2\pi i\nu x)d\nu.\ 2\pi\nu = k.\]
+Con esta formulación de la transformada no se tiene unitareidad, por lo
+que es necesario volver a normalizarla.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{p}\PY{p}{,} \PY{n}{p0}\PY{p}{,}\PY{n}{nu}\PY{p}{,}\PY{n}{x}\PY{p}{,}\PY{n}{k} \PY{o}{=} \PY{n}{symbols}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p p\PYZus{}0 nu x k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PYZbs{}
+                               \PY{n}{real}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}
+        \PY{n}{s} \PY{o}{=} \PY{n}{Symbol}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sigma}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{real}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,} \PYZbs{}
+                   \PY{n}{positive}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}
+        \PY{n}{mom\PYZus{}repr} \PY{o}{=} \PY{n}{nsimplify}\PY{p}{(}\PY{l+m+mf}{1.}\PY{o}{/}\PY{p}{(}\PY{n}{pi}\PY{o}{*}\PY{n}{s}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{h}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{l+m+mf}{1.}\PY{o}{/}\PY{l+m+mi}{4}\PY{p}{)}\PYZbs{}
+                             \PY{o}{*} \PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{p}\PY{o}{\PYZhy{}}\PY{n}{p0}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{s}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{h}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n}{mom\PYZus{}repr}
+        \PY{n}{pos\PYZus{}repr} \PY{o}{=} \PYZbs{}
+        \PY{n}{inverse\PYZus{}fourier\PYZus{}transform}\PY{p}{(}\PY{n}{mom\PYZus{}repr}\PY{o}{.}\PY{n}{subs}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PYZbs{}
+                                                \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{pi}\PY{o}{*}\PY{n}{nu}\PY{o}{*}\PY{n}{h}\PY{p}{)}\PY{p}{,} \PY{n}{nu}\PY{p}{,}\PY{n}{x}\PY{p}{)}
+        \PY{n}{norm} \PY{o}{=} \PYZbs{}
+        \PY{n}{simplify}\PY{p}{(}\PY{n}{integrate}\PY{p}{(}\PY{n}{pos\PYZus{}repr}\PY{o}{*}\PY{n}{conjugate}\PY{p}{(}\PY{n}{pos\PYZus{}repr}\PY{p}{)}\PY{p}{,}\PYZbs{}
+                           \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{n}{oo}\PY{p}{,}\PY{n}{oo}\PY{p}{)}\PY{p}{,}\PY{n}{conds}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{none}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n}{pos\PYZus{}repr}\PY{o}{*}\PY{o}{=}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{sqrt}\PY{p}{(}\PY{n}{norm}\PY{p}{)}
+        \PY{n}{simplify}\PY{p}{(}\PY{n}{pos\PYZus{}repr}\PY{p}{)}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}4}]:}
+    
+    \[\frac{\sqrt{\sigma}}{\sqrt[4]{\pi}} e^{- \frac{x}{2 \hbar} \left(\hbar \sigma^{2} x - 2 i p_{0}\right)}\]
+
+    
+
+    Ahora se debe calcular la varianza de la variable \(\lambda = x ,p\)
+según \[\Delta\lambda^2 = \int\lambda^2|\phi(\lambda)|^2d\lambda\] y
+comprobar que \[\Delta x\Delta p = \frac{\hbar}{2}.\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{delta\PYZus{}p\PYZus{}sq} \PY{o}{=} \PY{n}{integrate}\PY{p}{(}\PY{n}{p}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{*} \PY{n}{mom\PYZus{}repr}\PY{o}{*}\PYZbs{}
+                               \PY{n}{conjugate}\PY{p}{(}\PY{n}{mom\PYZus{}repr}\PY{p}{)}\PY{p}{,}\PYZbs{}
+                               \PY{p}{(}\PY{n}{p}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{n}{oo}\PY{p}{,}\PY{n}{oo}\PY{p}{)}\PY{p}{,}\PY{n}{conds}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{none}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{re}\PY{p}{(}\PY{n}{delta\PYZus{}p\PYZus{}sq}\PY{p}{)}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}5}]:}
+    
+    \[\frac{\hbar^{2} \sigma^{2}}{2} + p_{0}^{2}\]
+
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{delta\PYZus{}x\PYZus{}sq} \PY{o}{=} \PY{n}{integrate}\PY{p}{(}\PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{*} \PY{n}{pos\PYZus{}repr}\PY{o}{*}\PYZbs{}
+                               \PY{n}{conjugate}\PY{p}{(}\PY{n}{pos\PYZus{}repr}\PY{p}{)}\PY{p}{,}\PYZbs{}
+                               \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{n}{oo}\PY{p}{,}\PY{n}{oo}\PY{p}{)}\PY{p}{,}\PY{n}{conds}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{none}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{re}\PY{p}{(}\PY{n}{delta\PYZus{}x\PYZus{}sq}\PY{p}{)}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}6}]:}
+    
+    \[\frac{1}{2 \sigma^{2}}\]
+
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{simplify}\PY{p}{(}\PY{n}{Abs}\PY{p}{(}\PY{n}{delta\PYZus{}p\PYZus{}sq}\PY{o}{.}\PY{n}{subs}\PY{p}{(}\PY{n}{p0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{*}\PY{n}{delta\PYZus{}x\PYZus{}sq}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}7}]:}
+    
+    \[\frac{\hbar^{2}}{4}\]
+
+    
+
+    Entonces, vemos que el paquete de onda gaussiano cumple con la relación
+de incertidumbre.
+
+Ahora bien, para la siguiente parte debemos hacer que el estado
+\(|\psi\rangle\) evolucione en el tiempo, para lo cual debemos, como es
+usual, aplicar el operador de evolución temporal, definido como
+\(U(t) = \exp(-iHt/\hbar)\), siendo \(H=\frac{p^2}{2m}\) el
+hamiltoniano. Ya que estamos en representación de momentum
+(inicialmente), y tratamos partículas libres. Tenemos que el paquete de
+onda en un tiempo \(t\) será
+\[\varphi(p,t)=U(t)\varphi(p)=\exp\left(-i\frac{p^2t}{2m\hbar}\right)\varphi(p)\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{mom\PYZus{}repr} \PY{o}{=} \PYZbs{}
+        \PY{n}{nsimplify}\PY{p}{(}\PY{n}{simplify}\PY{p}{(}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{I}\PY{o}{*}\PY{n}{p}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{t}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{m}\PY{o}{*}\PY{n}{h}\PY{p}{)}\PY{p}{)}\PYZbs{}
+                           \PY{o}{*}\PY{l+m+mf}{1.}\PY{o}{/}\PY{p}{(}\PY{n}{pi}\PY{o}{*}\PY{n}{s}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{h}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{l+m+mf}{1.}\PY{o}{/}\PY{l+m+mi}{4}\PY{p}{)}\PYZbs{}
+                           \PY{o}{*} \PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{p}\PY{o}{\PYZhy{}}\PY{n}{p0}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{s}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{h}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n}{mom\PYZus{}repr}
+        \PY{n}{pos\PYZus{}repr} \PY{o}{=} \PYZbs{}
+        \PY{n}{inverse\PYZus{}fourier\PYZus{}transform}\PY{p}{(}\PY{n}{mom\PYZus{}repr}\PY{o}{.}\PY{n}{subs}\PY{p}{(}\PY{n}{p}\PY{p}{,}\PYZbs{}
+                                                \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{pi}\PY{o}{*}\PY{n}{nu}\PY{o}{*}\PY{n}{h}\PY{p}{)}\PY{p}{,} \PYZbs{}
+                                  \PY{n}{nu}\PY{p}{,}\PY{n}{x}\PY{p}{,} \PY{n}{noconds}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}
+        \PY{n}{re}\PY{p}{(}\PY{n}{conjugate}\PY{p}{(}\PY{n}{pos\PYZus{}repr}\PY{p}{)}\PY{o}{*}\PY{n}{pos\PYZus{}repr}\PY{p}{)}
+        \PY{n}{norm} \PY{o}{=} \PYZbs{}
+        \PY{n}{simplify}\PY{p}{(}\PY{n}{integrate}\PY{p}{(}\PY{n}{re}\PY{p}{(}\PY{n}{conjugate}\PY{p}{(}\PY{n}{pos\PYZus{}repr}\PY{p}{)}\PYZbs{}
+                              \PY{o}{*}\PY{n}{pos\PYZus{}repr}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{n}{oo}\PY{p}{,}\PY{n}{oo}\PY{p}{)}\PY{p}{,}\PY{n}{conds}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{none}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}simplify(Abs(norm))}
+        \PY{n}{pos\PYZus{}repr}\PY{o}{*}\PY{o}{=}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{sqrt}\PY{p}{(}\PY{n}{norm}\PY{p}{)}
+        \PY{n}{pos\PYZus{}repr}\PY{o}{=}\PY{n}{simplify}\PY{p}{(}\PY{n}{cancel}\PY{p}{(}\PY{n}{pos\PYZus{}repr}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{delta\PYZus{}x\PYZus{}sq} \PY{o}{=} \PYZbs{}
+        \PY{n}{integrate}\PY{p}{(}\PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{*} \PY{n}{re}\PY{p}{(}\PY{n}{cancel}\PY{p}{(}\PY{n}{pos\PYZus{}repr}\PYZbs{}
+                                   \PY{o}{*}\PY{n}{conjugate}\PY{p}{(}\PY{n}{pos\PYZus{}repr}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PYZbs{}
+                  \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{n}{oo}\PY{p}{,}\PY{n}{oo}\PY{p}{)}\PY{p}{,}\PY{n}{conds}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{none}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{collect}\PY{p}{(}\PY{n}{simplify}\PY{p}{(}\PY{n}{delta\PYZus{}x\PYZus{}sq}\PY{p}{)}\PY{p}{,}\PY{n}{t}\PY{p}{)}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}9}]:}
+    
+    \[t^{2} \left(\frac{\hbar^{2} \sigma^{2}}{2 m^{2}} + \frac{p_{0}^{2}}{m^{2}}\right) + \frac{1}{2 \sigma^{2}}\]
+
+    
+
+    De esta forma vemos que se obtiene la expresión deseada (si tomamos
+\(p_0=0\). En general tenemos
+\[\Delta x^2(t) = t^2\left(\frac{\hbar^2\sigma^2}{2m^2} + \frac{p_0^2}{m^2}\right) + \frac{1}{2\sigma^2}.\]
+Que era lo que se quería demostrar.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
